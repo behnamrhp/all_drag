@@ -3,6 +3,7 @@ import free from './js/views/freeDrag.js';
 import slide from './js/views/slideDrag.js';
 import freeDrag from "./js/views/freeDrag.js";
 import slideDrag from "./js/views/slideDrag.js";
+import './all_drag_style.css';
 
 class all_drag {
     _elem;
@@ -309,16 +310,25 @@ class all_drag {
             if (this._config.drag_type.freeDrag.drag_style === 'elevate') freeDrag.freeDragAnimation(targetElem);
 
             //check has container limit to move
-            let checkLimitContainerXAllowed = true
-            let checkLimitContainerYAllowed = true
+            let checkLimitContainerXAllowed = true;
+            let checkLimitContainerXLeftAllowed = true;
+            let checkLimitContainerYAllowed = true;
+            let checkLimitContainerYTopAllowed = true;
 
-            if (this._config.drag_type.freeDrag.allowedDistrict) checkLimitContainerXAllowed = freeDrag.containerLimitX(targetElem, clientX);
+            if (this._config.drag_type.freeDrag.allowedDistrict) checkLimitContainerXAllowed     = freeDrag.containerLimitX(targetElem, clientX);
+            if (this._config.drag_type.freeDrag.allowedDistrict) checkLimitContainerXLeftAllowed = freeDrag.containerLimitLeftX(targetElem);
 
             if (this._config.drag_type.freeDrag.allowedDistrict) checkLimitContainerYAllowed = freeDrag.containerLimitY(targetElem, clientY);
+            if (this._config.drag_type.freeDrag.allowedDistrict) checkLimitContainerYTopAllowed = freeDrag.containerLimitYTop(targetElem);
 
             if (checkLimitContainerXAllowed) targetElem.style.left = (targetElem.offsetLeft - leftMouseMove) + "px";
+            if (!checkLimitContainerXAllowed) targetElem.style.left = targetElem.offsetLeft - 1 + 'px';
+            if(!checkLimitContainerXLeftAllowed) targetElem.style.left = targetElem.offsetLeft + 3 + 'px';
 
-            if (checkLimitContainerYAllowed) targetElem.style.top = (targetElem.offsetTop - topMouseMove) + "px"
+            if (checkLimitContainerYAllowed) targetElem.style.top = (targetElem.offsetTop - topMouseMove) + "px";
+            if(!checkLimitContainerYAllowed)targetElem.style.top = (targetElem.offsetTop - 1) + "px";
+            if(!checkLimitContainerYTopAllowed) targetElem.style.top = targetElem.offsetTop + 2 + 'px';
+            
 
 
             //added move slide drag event

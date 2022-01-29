@@ -1,6 +1,6 @@
 {
   "name": "all-drag",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "plugin for drag every element free or drag element",
   "default": "index.html",
   "scripts": {

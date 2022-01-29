@@ -57,13 +57,24 @@ class freeDrag extends parent {
 
         container  = document.querySelector(`#${container}`);
 
-        if (container.getBoundingClientRect().left > +XPose ) return false;
+        
+        const targetElOffsetX  = targetElem.getBoundingClientRect().left + targetElem.getBoundingClientRect().width;
+        const containerOffsetX = container.getBoundingClientRect().width + container.getBoundingClientRect().left;
+        return containerOffsetX  >= targetElOffsetX;
+    }
 
+    containerLimitLeftX(targetElem ){
 
+        let container = this._config.drag_type.freeDrag.allowedDistrict;
 
-        return container.getBoundingClientRect().width + container.getBoundingClientRect().left >= +XPose;
+        if (!document.querySelector(`#${container}`) ){
+            console.error('couldn\'t find any container please choose correct container id')
+            return false;
+        }
 
+        container  = document.querySelector(`#${container}`);
 
+        return container.getBoundingClientRect().left < targetElem.getBoundingClientRect().left;
     }
 
     containerLimitY(targetElement,YPose){
@@ -76,11 +87,24 @@ class freeDrag extends parent {
 
         container  = document.querySelector(`#${container}`);
 
-        if (container.getBoundingClientRect().top > +YPose ) return false;
+        if (container.getBoundingClientRect().top > +targetElement.getBoundingClientRect().top ) return false;
 
-        return container.getBoundingClientRect().top + container.getBoundingClientRect().height >= +YPose;
+        return container.getBoundingClientRect().top + container.getBoundingClientRect().height >= +targetElement.getBoundingClientRect().top + targetElement.getBoundingClientRect().height;
 
 
+    }
+
+    containerLimitYTop(targetElement){
+        let container = this._config.drag_type.freeDrag.allowedDistrict;
+
+        if (!document.querySelector(`#${container}`) ){
+            console.error('couldn\'t find any container please choose correct container id')
+            return false;
+        }
+
+        container  = document.querySelector(`#${container}`);
+
+        return container.getBoundingClientRect().top < targetElement.getBoundingClientRect().top ;
     }
 
 }
